@@ -1,0 +1,144 @@
+<form
+  class="add-application-form"
+  (ngSubmit)="isEditMode ? sendUpdatedForm() : sendForm()"
+  *ngIf="addAplicationForm"
+  [formGroup]="addAplicationForm"
+>
+  <h2>{{ formTitle }}</h2>
+  <mat-form-field class="example-full-width">
+    <mat-label>Team Name</mat-label>
+    <input formControlName="team_name" matInput />
+  </mat-form-field>
+  <br />
+  <mat-form-field class="example-full-width">
+    <mat-label>Team Description</mat-label>
+    <textarea formControlName="desc" matInput></textarea>
+  </mat-form-field>
+  <br />
+  <h4>Członkowie</h4>
+  <div
+    class="members-container"
+    *ngIf="addAplicationForm.get('contacts')"
+    formArrayName="contacts"
+  >
+    <div
+      *ngFor="let contact of contactsControls.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <div class="text-center">---</div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Phone</mat-label>
+        <input formControlName="phone" matInput />
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+      </mat-form-field>
+      <p *ngIf="contact.hasError('invalidGroup')" class="valid-group">
+        Uzupełnij poprawnie wszystkie dane dla tego użytkownika!
+        {{
+          isEditMode
+            ? "(lub zostaw wszystkie pola puste w celu usunięcia członka zespołu)"
+            : ""
+        }}
+      </p>
+    </div>
+    <button
+      type="button"
+      (click)="addContact()"
+      mat-fab
+      extended
+      color="primary"
+      [disabled]="contactsControls.controls.length > 4"
+    >
+      Dodaj członka Zespołu<mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="file-input-container">
+    <input
+      type="file"
+      #filePicker
+      (change)="onFilePicked($event)"
+      class="file-picker-hidden"
+      accept="application/pdf"
+    />
+    <button
+      *ngIf="!isEditMode; else editButton"
+      class="file-picker-button"
+      type="button"
+      (click)="filePicker.click()"
+      mat-fab
+      extended
+      color="primary"
+    >
+      Wybierz Plik
+      <mat-icon>cloud</mat-icon>
+      <span *ngIf="choosenFileName"
+        ><i>- {{ choosenFileName }}</i></span
+      >
+    </button>
+    <ng-template #editButton>
+      <input
+        type="file"
+        #changeFilePicker
+        (change)="onChangeFile($event)"
+        class="file-picker-hidden"
+        accept="application/pdf"
+      />
+      <button
+        class="file-picker-button"
+        type="button"
+        (click)="changeFilePicker.click()"
+        mat-fab
+        extended
+        color="primary"
+      >
+        Zamień Plik
+        <mat-icon>cloud</mat-icon>
+        <span *ngIf="choosenFileName"
+          ><i>- {{ choosenFileName }}</i></span
+        >
+      </button>
+    </ng-template>
+    <button
+      *ngIf="isEditMode"
+      class="file-picker-button"
+      type="button"
+      (click)="onDeleteFile()"
+      mat-fab
+      extended
+      color="warn"
+    >
+      Usuń Plik
+      <mat-icon>delete</mat-icon>
+      <span *ngIf="choosenFileName"
+        ><i>- {{ choosenFileName }}</i></span
+      >
+    </button>
+  </div>
+  <div class="action-buttons-container">
+    <button
+      class="submit-button"
+      mat-fab
+      extended
+      color="primary"
+      [disabled]="addAplicationForm.invalid"
+    >
+      Zatwierdź
+    </button>
+    <button
+      type="button"
+      (click)="this.dialogRef.close()"
+      class="close-button"
+      mat-fab
+      extended
+      color="warn"
+    >
+      Zamknij
+    </button>
+  </div>
+</form>

@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  email String @unique
+
+  password String
+}
+
+model Application {
+  id        Int       @id @default(autoincrement())
+  team_name String    @unique
+  desc      String
+  contacts  Contact[]
+  file_ids  File[]
+}
+
+model Contact {
+  id            Int          @id @default(autoincrement())
+  name          String
+  email         String
+  phone         String
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+}
+
+model File {
+  id            Int          @id @default(autoincrement())
+  name          String
+  upload_date   DateTime
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId Int?
+}

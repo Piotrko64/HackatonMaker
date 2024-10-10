@@ -1,0 +1,45 @@
+.dashboard-wrapper {
+  padding-top: 100px;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-bottom: 200px;
+}
+
+.applications-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 200px;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1800px;
+}
+.white-container {
+  background-color: white;
+  border-radius: 5px;
+  width: 75%;
+  min-width: 500px;
+  padding: 25px;
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+.without-applications {
+  font-size: 2.4rem !important;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  min-width: 400px;
+  padding: 30px 80px;
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+.logout {
+  margin-top: 50px;
+}

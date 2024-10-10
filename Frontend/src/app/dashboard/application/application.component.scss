@@ -1,0 +1,25 @@
+.example-card {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 300px;
+  min-height: 400px;
+}
+
+.action-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.text-center {
+  display: flex;
+  justify-content: center;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

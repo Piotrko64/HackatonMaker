@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 [appColorByState]="state | async">
+    {{ headingText }}
+  </h1>
+  <p>{{ text | async }}</p>
+  <div mat-dialog-actions>
+    <button
+      mat-button
+      cdkFocusInitial
+      mat-raised-button
+      [appColorByState]="state | async"
+      [onlyBackground]="true"
+      (click)="close()"
+    >
+      Ok, Zamknij
+    </button>
+  </div>
+</div>

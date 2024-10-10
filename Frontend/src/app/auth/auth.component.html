@@ -1,0 +1,80 @@
+<div class="auth">
+  <form (ngSubmit)="onSubmit()" [formGroup]="authForm">
+    <h1 class="text-center">
+      {{ currentMode === modes.SIGN_IN ? "Logowanie" : "Rejestracja" }}
+    </h1>
+
+    <mat-form-field class="input">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        placeholder="Ex. Wronka@exampleHackaton.com"
+      />
+
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Wpisz poprawny adres email!
+      </mat-error>
+      <mat-error
+        *ngIf="emailFormControl.hasError('required') && emailFormControl.dirty"
+      >
+        Email jest <u>wymagany</u>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input">
+      <mat-label>Hasło</mat-label>
+      <input
+        type="password"
+        matInput
+        formControlName="password"
+        matTooltip="Musisz użyć silnego hasła!"
+      />
+
+      <mat-error
+        *ngIf="
+          passwordFormControl.hasError('pattern') &&
+          !emailFormControl.hasError('required') &&
+          currentMode === modes.SIGN_UP
+        "
+      >
+        Hasło jest za słabe
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Hasło jest <u>wymagane</u>
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="authForm.invalid"
+    >
+      {{ currentMode === modes.SIGN_IN ? "Zaloguj się" : "Zarejestruj się" }}
+    </button>
+    <mat-divider class="divider"></mat-divider>
+    <p class="text-center">
+      {{
+        currentMode === modes.SIGN_IN
+          ? "Nie masz jeszcze konta?"
+          : "Chcesz się zalogować?"
+      }}
+    </p>
+    <button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      (click)="toggleAuthMode()"
+    >
+      Przełącz na
+      {{ currentMode === modes.SIGN_IN ? "rejestracje" : "logowanie" }}
+    </button>
+  </form>
+</div>

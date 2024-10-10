@@ -1,0 +1,29 @@
+<div class="dashboard-wrapper">
+  <div class="white-container text-center">
+    <h1 class="text-center">Pulpit do zarządzania zgłoszeniami</h1>
+    <button
+      (click)="openDialog('Zgłaszanie Drużyny', false)"
+      mat-fab
+      extended
+      color="primary"
+    >
+      <mat-icon>add</mat-icon>
+      Dodaj Zgłoszenie
+    </button>
+  </div>
+  <div class="applications-container">
+    <app-application
+      *ngFor="let application of applications | async"
+      [application]="application"
+    ></app-application>
+  </div>
+  <h1 *ngIf="(applications | async).length === 0" class="without-applications">
+    Brak aplikacji do wyświetlenia
+  </h1>
+
+  <div class="logout">
+    <button mat-raised-button color="accent" (click)="logout()">
+      Wyloguj się
+    </button>
+  </div>
+</div>
